@@ -172,7 +172,7 @@ def build_ios(p: Palette) -> dict:
             "messageText": h(p.text_muted),
             "messageHighlightedText": h(p.text),
             "messageDraftText": h(p.warning),
-            "checkmark": h(accent),
+            "checkmark": h(p.success),
             "pendingIndicator": h(p.text_muted),
             "failedFill": h(p.error),
             "failedFg": h(p.text),
