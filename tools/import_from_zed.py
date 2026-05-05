@@ -20,12 +20,14 @@ Pipeline per color:
      hue preserved.
 """
 import colorsys
-import dataclasses
 import json
 import os
 import re
-from dataclasses import dataclass
+import sys
 from typing import Any
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from palette import Palette
 
 # ---- knobs ----
 GAMMA  = 1.10   # > 1 brightens midtones (lifts dark backgrounds)
@@ -172,70 +174,6 @@ def walk(node: Any, key: str = "") -> Any:
     return node
 
 
-@dataclass
-class Palette:
-    """Mirrors the shape of ../ayu-mirage.toml."""
-    # backgrounds
-    bg: str
-    panel: str
-    surface: str
-    elem: str
-    elem_hover: str
-    elem_active: str
-    elem_selected: str
-    title_bar: str
-    title_bar_inactive: str
-    # borders
-    border: str
-    border_focused: str
-    # text
-    text: str
-    text_muted: str
-    text_disabled: str
-    # accent_status
-    accent: str
-    success: str
-    warning: str
-    error: str
-    # status_bg
-    info_bg: str
-    info_border: str
-    hint_bg: str
-    hint_border: str
-    success_bg: str
-    success_border: str
-    warning_bg: str
-    warning_border: str
-    error_bg: str
-    error_border: str
-    # diff
-    created: str
-    created_bg: str
-    deleted: str
-    deleted_bg: str
-    # ansi
-    ansi_blue: str
-    ansi_magenta: str
-    ansi_cyan: str
-    # syntax
-    syn_keyword: str
-    syn_function: str
-    syn_string: str
-    syn_string_regex: str
-    syn_comment: str
-    syn_number: str
-    syn_type: str
-    syn_operator: str
-    syn_attribute: str
-    syn_punctuation: str
-    syn_doc: str
-    syn_string_special: str
-    syn_predictive: str
-
-    def as_dict(self) -> dict:
-        return dataclasses.asdict(self)
-
-
 def palette_from_zed(zed_theme: dict) -> Palette:
     style = zed_theme["themes"][0]["style"]
     syntax = style["syntax"]
@@ -258,6 +196,10 @@ def palette_from_zed(zed_theme: dict) -> Palette:
         elem_selected=s("element.selected"),
         title_bar=s("title_bar.background"),
         title_bar_inactive=s("title_bar.inactive_background"),
+        # Upstream has no separate terminal bg; default the standalone Terminal.app
+        # to a darker shade for extra contrast. Hand-edit in the TOML if you want to
+        # override.
+        terminal_bg="#1a1a1a",
         border=s("border"),
         border_focused=s("border.focused"),
         text=s("text"),
@@ -328,7 +270,7 @@ def write_palette_toml(path: str, p: Palette) -> None:
     sections = [
         ("backgrounds", ["bg", "panel", "surface", "elem", "elem_hover",
                          "elem_active", "elem_selected", "title_bar",
-                         "title_bar_inactive"]),
+                         "title_bar_inactive", "terminal_bg"]),
         ("borders", ["border", "border_focused"]),
         ("text", ["text", "text_muted", "text_disabled"]),
         ("accent_status", ["accent", "success", "warning", "error"]),

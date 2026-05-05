@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """Build all theme outputs.
 
-Runs the per-target builders in dependency order:
+Each per-target builder is independent: it reads ../ayu-mirage.toml (the
+hand-edited single source of truth) and emits its own theme file. There is no
+order dependency between them — this script just runs them all for convenience.
 
-  zed/build.py       runs the contrast pipeline against src/ayu-source.json,
-                     writes zed/*.json AND ayu-mirage.toml (palette).
-  claude/build.py    reads ayu-mirage.toml, writes claude/*.json.
-  telegram/build.py  reads ayu-mirage.toml, writes telegram/*.tdesktop-theme.
+  zed/build.py       palette -> zed/ayu-mirage-high-contrast.json
+  claude/build.py    palette -> claude/ayu-mirage.json
+  telegram/build.py  palette -> telegram/ayu-mirage.tdesktop-theme
+  terminal/build.py  palette -> terminal/ayu-mirage.terminal
 
-Each builder is a self-contained script — you can run any one of them directly
-when iterating on a single target."""
+To re-seed ayu-mirage.toml from upstream Zed Ayu, run tools/import_from_zed.py
+(or `make reseed`). That is the only thing that writes the palette."""
 import os
 import subprocess
 import sys

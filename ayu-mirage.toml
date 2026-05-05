@@ -12,6 +12,8 @@ elem_active = "#4b4b4b"
 elem_selected = "#4b4b4b"
 title_bar = "#414141"
 title_bar_inactive = "#343434"
+# Terminal.app and Zed terminal sit darker than the editor bg for extra contrast.
+terminal_bg = "#1a1a1a"
 
 [borders]
 border = "#363636"
