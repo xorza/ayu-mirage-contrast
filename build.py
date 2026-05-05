@@ -11,6 +11,7 @@ order dependency between them — this script just runs them all for convenience
   telegram_ios/build.py palette -> telegram_ios/ayu-mirage.tgios-theme
   terminal/build.py     palette -> terminal/ayu-mirage.terminal
   kde/build.py          palette -> kde/ayu-mirage.colors
+  konsole/build.py      palette -> konsole/ayu-mirage.colorscheme
 
 To re-seed ayu-mirage.toml from upstream Zed Ayu, run tools/import_from_zed.py
 (or `make reseed`). That is the only thing that writes the palette."""
@@ -19,7 +20,7 @@ import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TARGETS = ("zed", "claude", "telegram", "telegram_ios", "terminal", "kde")
+TARGETS = ("zed", "claude", "telegram", "telegram_ios", "terminal", "kde", "konsole")
 
 
 def main() -> None:

@@ -27,6 +27,18 @@ if [[ "$(uname)" == "Darwin" ]]; then
     echo "imported terminal/ayu-mirage.terminal into Terminal.app"
 fi
 
+# KDE Plasma + Konsole (Linux only). Plasma reads color schemes from
+# ~/.local/share/color-schemes; Konsole from ~/.local/share/konsole. Neither
+# has a scriptable "set as default" — pick via System Settings → Colors and
+# Konsole → Edit Profile → Appearance.
+if [[ "$(uname)" == "Linux" ]]; then
+    plasma_dir="$HOME/.local/share/color-schemes"
+    konsole_dir="$HOME/.local/share/konsole"
+    install_file "$here/kde/ayu-mirage.colors"          "$plasma_dir/ayu-mirage.colors"
+    install_file "$here/konsole/ayu-mirage.colorscheme" "$konsole_dir/ayu-mirage.colorscheme"
+    echo "copied themes into $plasma_dir and $konsole_dir"
+fi
+
 # Telegram Desktop has no scriptable theme-import path — load
 # telegram/ayu-mirage.tdesktop-theme via Settings → Chat Settings → Custom theme.
 echo "telegram/ayu-mirage.tdesktop-theme: load it manually via Telegram → Settings → Chat Settings"
