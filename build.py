@@ -52,7 +52,7 @@ CHROME_COMPRESS = 0.40
 
 # Borders flatten to a darker target than chrome bgs so separators read as
 # subtle cracks below panel level instead of mid-gray ridges.
-BORDER_TARGET   = 30
+BORDER_TARGET   = 42
 BORDER_COMPRESS = 0.75
 
 CHROME_KEYS = {
