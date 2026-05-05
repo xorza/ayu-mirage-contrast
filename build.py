@@ -24,6 +24,9 @@ import colorsys
 import json
 import os
 import re
+import struct
+import zipfile
+import zlib
 
 # ---- knobs ----
 GAMMA  = 1.10   # > 1 brightens midtones (lifts dark backgrounds)
@@ -331,10 +334,29 @@ def write_json(path: str, data: dict) -> None:
     print(f"wrote {path}")
 
 
-def write_text(path: str, text: str) -> None:
+def solid_png(hex_color: str, size: int = 8) -> bytes:
+    """Tiny solid-color PNG (no Pillow). Telegram tiles/scales it as wallpaper."""
+    h = hex_color.lstrip("#")
+    rgb = bytes((int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)))
+
+    def chunk(typ: bytes, data: bytes) -> bytes:
+        return (struct.pack(">I", len(data)) + typ + data
+                + struct.pack(">I", zlib.crc32(typ + data) & 0xffffffff))
+
+    ihdr = struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0)  # 8-bit RGB
+    raw = b"".join(b"\x00" + rgb * size for _ in range(size))  # filter byte + row
+    return (b"\x89PNG\r\n\x1a\n"
+            + chunk(b"IHDR", ihdr)
+            + chunk(b"IDAT", zlib.compress(raw, 9))
+            + chunk(b"IEND", b""))
+
+
+def write_telegram(path: str, palette: str, bg_hex: str) -> None:
+    """Zipped .tdesktop-theme bundling palette + solid background.png."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w") as f:
-        f.write(text)
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("colors.tdesktop-theme", palette)
+        z.writestr("background.png", solid_png(bg_hex))
     print(f"wrote {path}")
 
 
@@ -346,7 +368,9 @@ def main() -> None:
     telegram = build_telegram(zed)
     write_json(os.path.join(here, "zed", "ayu-mirage-high-contrast.json"), zed)
     write_json(os.path.join(here, "claude", "ayu-mirage.json"), claude)
-    write_text(os.path.join(here, "telegram", "ayu-mirage.tdesktop-theme"), telegram)
+    bg_hex = strip_alpha(zed["themes"][0]["style"]["editor.background"])
+    write_telegram(os.path.join(here, "telegram", "ayu-mirage.tdesktop-theme"),
+                   telegram, bg_hex)
 
 
 if __name__ == "__main__":

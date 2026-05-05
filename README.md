@@ -59,3 +59,5 @@ After processing the Zed theme, `build.py` maps its values into Claude Code's cu
 ## Telegram port
 
 `build_telegram` in `build.py` emits a `.tdesktop-theme` palette (~50 keys covering window chrome, sidebar, chat list, message bubbles, buttons, scrollbar, mentions). Telegram Desktop falls back to its dark defaults for any constant we don't define. Telegram supports `#rrggbbaa`, but every value here is opaque (alpha is stripped on the way out, same as the Claude port).
+
+The output is actually a small zip archive (Telegram still expects the `.tdesktop-theme` extension) containing `colors.tdesktop-theme` plus a solid-color `background.png` matching `windowBg`. That overrides Telegram's default Star Wars chat wallpaper with a flat dark panel. The PNG is generated inline via `zlib` — no Pillow dependency.
