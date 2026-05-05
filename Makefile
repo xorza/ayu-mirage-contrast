@@ -5,12 +5,9 @@ all: build
 build:
 	python3 build.py
 
-# Symlink generated themes into Zed and Claude theme dirs.
+# Copy generated themes into Zed and Claude theme dirs.
 install: all
-	mkdir -p $$HOME/.config/zed/themes $$HOME/.claude/themes
-	ln -sf $(CURDIR)/zed/ayu-mirage-high-contrast.json $$HOME/.config/zed/themes/ayu-mirage-high-contrast.json
-	ln -sf $(CURDIR)/claude/ayu-mirage.json $$HOME/.claude/themes/ayu-mirage.json
-	@echo "linked themes into ~/.config/zed/themes and ~/.claude/themes"
+	./install.sh
 
 # Refresh the upstream Zed Ayu source.
 fetch-source:

@@ -16,7 +16,8 @@ Makefile                             convenience targets
 
 ```sh
 make            # build both themes
-make install    # symlink generated themes into ~/.config/zed/themes and ~/.claude/themes
+make install    # copy generated themes into ~/.config/zed/themes and ~/.claude/themes
+./install.sh    # same as `make install`, without make
 make fetch-source   # refresh src/ayu-source.json from zed-industries/zed main
 ```
 
