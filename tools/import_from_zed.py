@@ -267,6 +267,11 @@ def build_zed(src: dict) -> dict:
 def write_palette_toml(path: str, p: Palette) -> None:
     """Write the palette to TOML. Re-seeded values OVERWRITE the hand-edited
     file — review the diff before committing."""
+    # Per-key comments survive re-seeds — useful for tokens whose role isn't
+    # obvious from the name (e.g. terminal_bg sitting darker than bg on purpose).
+    key_comments = {
+        "terminal_bg": "Terminal.app and Zed terminal sit darker than the editor bg for extra contrast.",
+    }
     sections = [
         ("backgrounds", ["bg", "panel", "surface", "elem", "elem_hover",
                          "elem_active", "elem_selected", "title_bar",
@@ -294,6 +299,8 @@ def write_palette_toml(path: str, p: Palette) -> None:
     for section, keys in sections:
         lines.append(f"[{section}]")
         for k in keys:
+            if k in key_comments:
+                lines.append(f"# {key_comments[k]}")
             lines.append(f'{k} = "{d[k]}"')
         lines.append("")
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
