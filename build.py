@@ -45,8 +45,7 @@ ACCENT_LIGHT = 1.00 # lightness multiplier for accent keys
 # Chrome flattening: after channel adj + desat, lerp every chrome value toward
 # CHROME_TARGET by CHROME_COMPRESS. 0 = preserve original spread; 1 = all chrome
 # becomes the same gray.
-CHROME_TARGET   = 55   # RGB component for the chrome mid-gray (~#373737); high enough that
-                       # element / ghost_element bgs read as raised pills above editor dark.
+CHROME_TARGET   = 45   # RGB component for the chrome mid-gray (~#2d2d2d)
 CHROME_COMPRESS = 0.40
 
 CHROME_KEYS = {
@@ -158,6 +157,15 @@ def build_zed(src: dict) -> dict:
     theme = walk(theme)
     theme["name"] = "Ayu Mirage High Contrast"
     theme["appearance"] = "dark"
+
+    # Manual override: info.background/border drive the title-bar project chip
+    # when its dropdown is open (Zed's Tinted(Accent) button style → status.info_*).
+    # The diagnostic-bg pipeline still produces a heavy navy that reads as out
+    # of theme. Substitute a softer mid-blue panel + accent-toned border.
+    style = theme["style"]
+    style["info.background"] = "#2c4a60ff"
+    style["info.border"]     = "#4a8ab0ff"
+
     return {
         "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
         "name": "Ayu Mirage High Contrast",
