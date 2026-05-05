@@ -75,6 +75,11 @@ def build_telegram(p: Palette) -> str:
         ("msgServiceBg",              p.panel),
         ("msgServiceFg",              p.text_muted),
 
+        # "Unread messages" divider in chat view — defaults render near-white.
+        ("historyUnreadBarBg",        p.panel),
+        ("historyUnreadBarBorder",    p.border),
+        ("historyUnreadBarFg",        p.accent),
+
         ("activeButtonBg",            p.accent),
         ("activeButtonBgOver",        p.accent),
         ("activeButtonFg",            p.bg),
