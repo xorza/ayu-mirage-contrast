@@ -1,5 +1,5 @@
 # Ayu Mirage High Contrast — semantic palette (single source of truth)
-# Re-seeded by tools/import_from_zed.py from src/ayu-source.json.
+# Re-seeded by tools/import_from_zed.py from tools/ayu-source.json.
 # Hand-edit me; the target builders are pure transformers.
 
 [backgrounds]

@@ -5,7 +5,8 @@ Run this only when you want to refresh the palette from a new upstream snapshot
 (after `make fetch-source`). Day-to-day, hand-edit ../ayu-mirage.toml; the
 target builders are pure transformers and do not invoke this pipeline.
 
-Reads ../src/ayu-source.json and writes ../ayu-mirage.toml.
+Reads ./ayu-source.json (upstream Zed Ayu snapshot, lives next to this script)
+and writes ../ayu-mirage.toml.
 
 Pipeline per color:
   1. Per-channel: gamma lift (brightens), then S-curve around MID (boosts contrast).
@@ -344,7 +345,7 @@ def write_palette_toml(path: str, p: Palette) -> None:
     ]
     d = p.as_dict()
     lines = ["# Ayu Mirage High Contrast — semantic palette (single source of truth)",
-             "# Re-seeded by tools/import_from_zed.py from src/ayu-source.json.",
+             "# Re-seeded by tools/import_from_zed.py from tools/ayu-source.json.",
              "# Hand-edit me; the target builders are pure transformers.",
              ""]
     for section, keys in sections:
@@ -361,7 +362,7 @@ def write_palette_toml(path: str, p: Palette) -> None:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))   # .../tools
     repo = os.path.dirname(here)
-    src = json.load(open(os.path.join(repo, "src", "ayu-source.json")))
+    src = json.load(open(os.path.join(here, "ayu-source.json")))
     zed = build_zed(src)                # full pipeline pass
     palette = palette_from_zed(zed)     # extract semantic tokens
     write_palette_toml(os.path.join(repo, "ayu-mirage.toml"), palette)

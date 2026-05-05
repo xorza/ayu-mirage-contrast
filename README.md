@@ -13,8 +13,8 @@ telegram/build.py                      palette → ayu-mirage.tdesktop-theme (zi
 zed/ayu-mirage-high-contrast.json      generated Zed theme
 claude/ayu-mirage.json                 generated Claude theme
 telegram/ayu-mirage.tdesktop-theme     generated Telegram theme
-src/ayu-source.json                    upstream Zed Ayu (only used by tools/import_from_zed.py)
-tools/import_from_zed.py               one-shot pipeline: src/ayu-source.json → ayu-mirage.toml
+tools/ayu-source.json                    upstream Zed Ayu (only used by tools/import_from_zed.py)
+tools/import_from_zed.py               one-shot pipeline: tools/ayu-source.json → ayu-mirage.toml
 Makefile                               convenience targets
 ```
 
@@ -30,7 +30,7 @@ To add a new target (Sublime, iTerm, …), drop a `<target>/build.py` next to it
 make            # build both themes
 make install    # copy generated themes into ~/.config/zed/themes and ~/.claude/themes
 ./install.sh    # same as `make install`, without make
-make fetch-source   # refresh src/ayu-source.json from zed-industries/zed main
+make fetch-source   # refresh tools/ayu-source.json from zed-industries/zed main
 ```
 
 In Zed: settings → theme → "Ayu Mirage High Contrast".

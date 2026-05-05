@@ -17,7 +17,7 @@ claude:
 telegram:
 	python3 telegram/build.py
 
-# One-shot: re-seed ayu-mirage.toml from upstream src/ayu-source.json by
+# One-shot: re-seed ayu-mirage.toml from upstream tools/ayu-source.json by
 # running the legacy contrast pipeline. Review the diff before committing.
 reseed:
 	python3 tools/import_from_zed.py
@@ -28,8 +28,8 @@ install: all
 
 # Refresh the upstream Zed Ayu source.
 fetch-source:
-	curl -fsSL https://raw.githubusercontent.com/zed-industries/zed/main/assets/themes/ayu/ayu.json > src/ayu-source.json
-	@echo "updated src/ayu-source.json"
+	curl -fsSL https://raw.githubusercontent.com/zed-industries/zed/main/assets/themes/ayu/ayu.json > tools/ayu-source.json
+	@echo "updated tools/ayu-source.json"
 
 # ayu-mirage.toml is a source file (hand-edited single source of truth);
 # never delete it here.
