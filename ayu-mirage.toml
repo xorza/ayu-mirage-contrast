@@ -3,20 +3,20 @@
 # Hand-edit me; the target builders are pure transformers.
 
 [backgrounds]
-bg = "#252525"
-panel = "#343434"
-surface = "#343434"
-elem = "#343434"
-elem_hover = "#3e3e3e"
-elem_active = "#4b4b4b"
-elem_selected = "#4b4b4b"
-title_bar = "#414141"
-title_bar_inactive = "#343434"
+bg = "#1f1f1f"
+panel = "#272727"
+surface = "#272727"
+elem = "#272727"
+elem_hover = "#2d2d2d"
+elem_active = "#353535"
+elem_selected = "#353535"
+title_bar = "#2f2f2f"
+title_bar_inactive = "#272727"
 # Terminal.app and Zed terminal sit darker than the editor bg for extra contrast.
-terminal_bg = "#1a1a1a"
+terminal_bg = "#101010"
 
 [borders]
-border = "#363636"
+border = "#2b2b2b"
 border_focused = "#105577"
 
 [text]

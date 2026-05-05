@@ -19,6 +19,7 @@ Pipeline per color:
   4. Diagnostic backgrounds (error/warning/created/...): contrast bump only,
      hue preserved.
 """
+
 import colorsys
 import json
 import os
@@ -30,44 +31,65 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from palette import Palette
 
 # ---- knobs ----
-GAMMA  = 1.10   # > 1 brightens midtones (lifts dark backgrounds)
-K_BG   = 1.40   # contrast boost for chrome (S-curve around MID)
-K_FG   = 1.15   # contrast boost for foreground — kept lower so saturated channels don't clamp
-K_DIAG = 1.10   # contrast boost for diagnostic tints (info/error/warning/created backgrounds);
-                # gentler than K_BG so the dark blue/red/yellow channel doesn't clip to 0 and oversaturate
-MID    = 0.40   # midpoint of the S-curve (theme is dark, so < 0.5)
-BG_SAT = 0.0    # chroma kept on chrome backgrounds (0 = pure gray)
-FG_SAT = 1.30   # chroma multiplier for foreground/accent colors (> 1 = punchier)
-FG_LIGHT = 0.88 # lightness multiplier for foreground (< 1 deepens / vivid; > 1 brightens / pastel)
-ACCENT_SAT   = 0.65 # saturation multiplier for accent keys (text.accent, link_text.hover) —
-                    # < 1 mutes them so they don't read as shouty when used as a button fill
-ACCENT_LIGHT = 1.00 # lightness multiplier for accent keys
+GAMMA = 1.10  # > 1 brightens midtones (lifts dark backgrounds)
+K_BG = 1.40  # contrast boost for chrome (S-curve around MID)
+K_FG = (
+    1.15  # contrast boost for foreground — kept lower so saturated channels don't clamp
+)
+K_DIAG = 1.10  # contrast boost for diagnostic tints (info/error/warning/created backgrounds);
+# gentler than K_BG so the dark blue/red/yellow channel doesn't clip to 0 and oversaturate
+MID = 0.40  # midpoint of the S-curve (theme is dark, so < 0.5)
+BG_SAT = 0.0  # chroma kept on chrome backgrounds (0 = pure gray)
+FG_SAT = 1.30  # chroma multiplier for foreground/accent colors (> 1 = punchier)
+FG_LIGHT = 0.88  # lightness multiplier for foreground (< 1 deepens / vivid; > 1 brightens / pastel)
+ACCENT_SAT = (
+    0.65  # saturation multiplier for accent keys (text.accent, link_text.hover) —
+)
+# < 1 mutes them so they don't read as shouty when used as a button fill
+ACCENT_LIGHT = 1.00  # lightness multiplier for accent keys
 
 # Chrome flattening: after channel adj + desat, lerp every chrome value toward
 # CHROME_TARGET by CHROME_COMPRESS. 0 = preserve original spread; 1 = all chrome
 # becomes the same gray.
-CHROME_TARGET   = 45   # RGB component for the chrome mid-gray (~#2d2d2d)
-CHROME_COMPRESS = 0.40
+CHROME_TARGET = 30  # RGB component for the chrome mid-gray (~#141414)
+CHROME_COMPRESS = 0.65
 
 # Borders flatten to a darker target than chrome bgs so separators read as
 # subtle cracks below panel level instead of mid-gray ridges.
-BORDER_TARGET   = 42
+BORDER_TARGET = 28
 BORDER_COMPRESS = 0.75
 
 CHROME_KEYS = {
-    "background", "editor.background", "editor.gutter.background",
-    "editor.subheader.background", "editor.active_line.background",
+    "background",
+    "editor.background",
+    "editor.gutter.background",
+    "editor.subheader.background",
+    "editor.active_line.background",
     "editor.highlighted_line.background",
-    "element.background", "element.hover", "element.active", "element.selected",
-    "ghost_element.background", "ghost_element.hover", "ghost_element.active", "ghost_element.selected",
-    "surface.background", "elevated_surface.background",
-    "panel.background", "status_bar.background", "title_bar.background",
-    "title_bar.inactive_background", "tab_bar.background",
-    "tab.inactive_background", "tab.active_background",
-    "toolbar.background", "terminal.background",
-    "scrollbar.track.background", "scrollbar.thumb.background",
+    "element.background",
+    "element.hover",
+    "element.active",
+    "element.selected",
+    "ghost_element.background",
+    "ghost_element.hover",
+    "ghost_element.active",
+    "ghost_element.selected",
+    "surface.background",
+    "elevated_surface.background",
+    "panel.background",
+    "status_bar.background",
+    "title_bar.background",
+    "title_bar.inactive_background",
+    "tab_bar.background",
+    "tab.inactive_background",
+    "tab.active_background",
+    "toolbar.background",
+    "terminal.background",
+    "scrollbar.track.background",
+    "scrollbar.thumb.background",
     "scrollbar.thumb.hover_background",
-    "terminal.ansi.black", "terminal.ansi.dim_black",
+    "terminal.ansi.black",
+    "terminal.ansi.dim_black",
 }
 
 # Neutral chrome borders — flatten to a darker, desaturated target so panel
@@ -75,15 +97,22 @@ CHROME_KEYS = {
 # borders (info/error/warning/created.border) and focused/selected borders are
 # NOT here — they keep hue.
 BORDER_KEYS = {
-    "border", "border.variant", "border.disabled",
-    "hidden.border", "ignored.border", "unreachable.border",
-    "scrollbar.thumb.border", "scrollbar.track.border",
+    "border",
+    "border.variant",
+    "border.disabled",
+    "hidden.border",
+    "ignored.border",
+    "unreachable.border",
+    "scrollbar.thumb.border",
+    "scrollbar.track.border",
 }
 
 SAT_NEUTRAL_SUFFIXES = (".background", ".border")
 SAT_NEUTRAL_KEYS = {
-    "drop_target.background", "ghost_element.background",
-    "search.match_background", "search.active_match_background",
+    "drop_target.background",
+    "ghost_element.background",
+    "search.match_background",
+    "search.active_match_background",
     "editor.document_highlight.read_background",
     "editor.document_highlight.write_background",
 }
@@ -132,7 +161,10 @@ def strip_alpha(c: str) -> str:
 def is_diagnostic_bg(key: str) -> bool:
     if key in SAT_NEUTRAL_KEYS:
         return True
-    return any(key.endswith(suf) for suf in SAT_NEUTRAL_SUFFIXES) and key not in CHROME_KEYS
+    return (
+        any(key.endswith(suf) for suf in SAT_NEUTRAL_SUFFIXES)
+        and key not in CHROME_KEYS
+    )
 
 
 def transform(value: str, key: str) -> str:
@@ -199,7 +231,7 @@ def palette_from_zed(zed_theme: dict) -> Palette:
         # Upstream has no separate terminal bg; default the standalone Terminal.app
         # to a darker shade for extra contrast. Hand-edit in the TOML if you want to
         # override.
-        terminal_bg="#1a1a1a",
+        terminal_bg="#101010",
         border=s("border"),
         border_focused=s("border.focused"),
         text=s("text"),
@@ -254,7 +286,7 @@ def build_zed(src: dict) -> dict:
     # of theme. Substitute a softer mid-blue panel + accent-toned border.
     style = theme["style"]
     style["info.background"] = "#2c4a60ff"
-    style["info.border"]     = "#4a8ab0ff"
+    style["info.border"] = "#4a8ab0ff"
 
     return {
         "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
@@ -273,29 +305,67 @@ def write_palette_toml(path: str, p: Palette) -> None:
         "terminal_bg": "Terminal.app and Zed terminal sit darker than the editor bg for extra contrast.",
     }
     sections = [
-        ("backgrounds", ["bg", "panel", "surface", "elem", "elem_hover",
-                         "elem_active", "elem_selected", "title_bar",
-                         "title_bar_inactive", "terminal_bg"]),
+        (
+            "backgrounds",
+            [
+                "bg",
+                "panel",
+                "surface",
+                "elem",
+                "elem_hover",
+                "elem_active",
+                "elem_selected",
+                "title_bar",
+                "title_bar_inactive",
+                "terminal_bg",
+            ],
+        ),
         ("borders", ["border", "border_focused"]),
         ("text", ["text", "text_muted", "text_disabled"]),
         ("accent_status", ["accent", "success", "warning", "error"]),
-        ("status_bg", ["info_bg", "info_border", "hint_bg", "hint_border",
-                       "success_bg", "success_border",
-                       "warning_bg", "warning_border",
-                       "error_bg", "error_border"]),
+        (
+            "status_bg",
+            [
+                "info_bg",
+                "info_border",
+                "hint_bg",
+                "hint_border",
+                "success_bg",
+                "success_border",
+                "warning_bg",
+                "warning_border",
+                "error_bg",
+                "error_border",
+            ],
+        ),
         ("diff", ["created", "created_bg", "deleted", "deleted_bg"]),
         ("ansi", ["ansi_blue", "ansi_magenta", "ansi_cyan"]),
-        ("syntax", ["syn_keyword", "syn_function", "syn_string",
-                    "syn_string_regex", "syn_comment", "syn_number",
-                    "syn_type", "syn_operator", "syn_attribute",
-                    "syn_punctuation", "syn_doc", "syn_string_special",
-                    "syn_predictive"]),
+        (
+            "syntax",
+            [
+                "syn_keyword",
+                "syn_function",
+                "syn_string",
+                "syn_string_regex",
+                "syn_comment",
+                "syn_number",
+                "syn_type",
+                "syn_operator",
+                "syn_attribute",
+                "syn_punctuation",
+                "syn_doc",
+                "syn_string_special",
+                "syn_predictive",
+            ],
+        ),
     ]
     d = p.as_dict()
-    lines = ["# Ayu Mirage High Contrast — semantic palette (single source of truth)",
-             "# Re-seeded by tools/import_from_zed.py from tools/ayu-source.json.",
-             "# Hand-edit me; the target builders are pure transformers.",
-             ""]
+    lines = [
+        "# Ayu Mirage High Contrast — semantic palette (single source of truth)",
+        "# Re-seeded by tools/import_from_zed.py from tools/ayu-source.json.",
+        "# Hand-edit me; the target builders are pure transformers.",
+        "",
+    ]
     for section, keys in sections:
         lines.append(f"[{section}]")
         for k in keys:
@@ -310,14 +380,13 @@ def write_palette_toml(path: str, p: Palette) -> None:
 
 
 def main() -> None:
-    here = os.path.dirname(os.path.abspath(__file__))   # .../tools
+    here = os.path.dirname(os.path.abspath(__file__))  # .../tools
     repo = os.path.dirname(here)
     src = json.load(open(os.path.join(here, "ayu-source.json")))
-    zed = build_zed(src)                # full pipeline pass
-    palette = palette_from_zed(zed)     # extract semantic tokens
+    zed = build_zed(src)  # full pipeline pass
+    palette = palette_from_zed(zed)  # extract semantic tokens
     write_palette_toml(os.path.join(repo, "ayu-mirage.toml"), palette)
 
 
 if __name__ == "__main__":
     main()
-
