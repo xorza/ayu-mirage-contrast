@@ -5,12 +5,12 @@ A higher-contrast variant of [Ayu Mirage](https://github.com/dempfi/ayu) for [Ze
 ## Layout
 
 ```
-src/ayu-source.json              upstream Zed Ayu theme (Mirage + Dark, both variants)
-build.py                         Zed processor: gamma + S-curve contrast + chrome flatten + fg deepen
-port-to-claude.py                ports the processed Zed theme into Claude Code's schema
-dist/ayu-mirage-high-contrast.json   generated Zed theme
-dist/ayu-mirage.json             generated Claude theme
-Makefile                         convenience targets
+src/ayu-source.json                  upstream Zed Ayu theme (Mirage + Dark, both variants)
+zed/build.py                         Zed processor: gamma + S-curve contrast + chrome flatten + fg deepen
+zed/ayu-mirage-high-contrast.json    generated Zed theme
+claude/port.py                       ports the processed Zed theme into Claude Code's schema
+claude/ayu-mirage.json               generated Claude theme
+Makefile                             convenience targets
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ In Claude Code: `/config` → theme → "Ayu Mirage".
 
 ## Tuning
 
-Knobs at the top of `build.py`:
+Knobs at the top of `zed/build.py`:
 
 | Knob | Effect |
 |---|---|
@@ -49,7 +49,7 @@ Knobs at the top of `build.py`:
 
 ## Claude port
 
-`port-to-claude.py` reads the generated Zed theme and maps its values into Claude Code's custom-theme schema. The mapping table is at the top of the file. Two manual fixes are baked in:
+`claude/port.py` reads the generated Zed theme and maps its values into Claude Code's custom-theme schema. The mapping table is at the top of the file. Two manual fixes are baked in:
 
 - `suggestion` ← `warning` so the highlighted row in the slash-command picker is visible.
 - `userMessageBackground` ← `element.background` so prompts stand out from the editor background.

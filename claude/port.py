@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Port the processed Zed theme to Claude Code.
 
-Reads dist/ayu-mirage-high-contrast.json and writes dist/ayu-mirage.json
-in Claude Code's custom-theme schema.
+Reads ../zed/ayu-mirage-high-contrast.json and writes ayu-mirage.json
+next to this script in Claude Code's custom-theme schema.
 
 Includes the manual fixes settled on during tuning:
   - suggestion = warning yellow (highlighted slash-command picker row)
@@ -13,8 +13,9 @@ import os
 import re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ZED_PATH = os.path.join(HERE, "dist", "ayu-mirage-high-contrast.json")
-CLAUDE_PATH = os.path.join(HERE, "dist", "ayu-mirage.json")
+REPO = os.path.dirname(HERE)
+ZED_PATH = os.path.join(REPO, "zed", "ayu-mirage-high-contrast.json")
+CLAUDE_PATH = os.path.join(HERE, "ayu-mirage.json")
 
 
 def strip_alpha(c: str) -> str:

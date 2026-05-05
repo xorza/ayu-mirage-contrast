@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build a high-contrast variant of Zed's Ayu Mirage.
 
-Reads src/ayu-source.json (upstream Zed Ayu themes file) and writes
-dist/ayu-mirage-high-contrast.json.
+Reads ../src/ayu-source.json (upstream Zed Ayu themes file) and writes
+ayu-mirage-high-contrast.json next to this script.
 
 Pipeline per color:
   1. Per-channel: gamma lift (brightens), then S-curve around MID (boosts contrast).
@@ -126,7 +126,8 @@ def walk(node, key: str = ""):
 
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
-    src = json.load(open(os.path.join(here, "src", "ayu-source.json")))
+    repo = os.path.dirname(here)
+    src = json.load(open(os.path.join(repo, "src", "ayu-source.json")))
     theme = next(t for t in src["themes"] if t["name"] == "Ayu Mirage")
     theme = walk(theme)
     theme["name"] = "Ayu Mirage High Contrast"
@@ -138,7 +139,7 @@ def main() -> None:
         "author": "xxorza",
         "themes": [theme],
     }
-    out_path = os.path.join(here, "dist", "ayu-mirage-high-contrast.json")
+    out_path = os.path.join(here, "ayu-mirage-high-contrast.json")
     with open(out_path, "w") as f:
         json.dump(out, f, indent=2)
     print(f"wrote {out_path}")

@@ -3,16 +3,16 @@
 all: build port
 
 build:
-	python3 build.py
+	python3 zed/build.py
 
 port: build
-	python3 port-to-claude.py
+	python3 claude/port.py
 
 # Symlink generated themes into Zed and Claude theme dirs.
 install: all
 	mkdir -p $$HOME/.config/zed/themes $$HOME/.claude/themes
-	ln -sf $(CURDIR)/dist/ayu-mirage-high-contrast.json $$HOME/.config/zed/themes/ayu-mirage-high-contrast.json
-	ln -sf $(CURDIR)/dist/ayu-mirage.json $$HOME/.claude/themes/ayu-mirage.json
+	ln -sf $(CURDIR)/zed/ayu-mirage-high-contrast.json $$HOME/.config/zed/themes/ayu-mirage-high-contrast.json
+	ln -sf $(CURDIR)/claude/ayu-mirage.json $$HOME/.claude/themes/ayu-mirage.json
 	@echo "linked themes into ~/.config/zed/themes and ~/.claude/themes"
 
 # Refresh the upstream Zed Ayu source.
@@ -21,4 +21,4 @@ fetch-source:
 	@echo "updated src/ayu-source.json"
 
 clean:
-	rm -f dist/*.json
+	rm -f zed/ayu-mirage-high-contrast.json claude/ayu-mirage.json
