@@ -154,9 +154,16 @@ def solid_png(hex_color: str, size: int = 8) -> bytes:
 
 
 def write_telegram_zip(path: str, palette_text: str, bg_hex: str) -> None:
+    # Fixed timestamp so identical inputs produce byte-identical archives —
+    # otherwise zipfile stamps each entry with `now` and git sees a diff on
+    # every build.
+    epoch = (1980, 1, 1, 0, 0, 0)
     with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as z:
-        z.writestr("colors.tdesktop-theme", palette_text)
-        z.writestr("background.png", solid_png(bg_hex))
+        for name, data in (("colors.tdesktop-theme", palette_text.encode()),
+                           ("background.png",        solid_png(bg_hex))):
+            info = zipfile.ZipInfo(name, date_time=epoch)
+            info.compress_type = zipfile.ZIP_DEFLATED
+            z.writestr(info, data)
     print(f"wrote {path}")
 
 
