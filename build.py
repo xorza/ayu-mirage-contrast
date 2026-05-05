@@ -319,6 +319,20 @@ def build_telegram(zed_theme: dict) -> str:
         ("activeLineFgError",         error_fg),
         ("attentionButtonFg",         warn_fg),
 
+        # Dividers / separators / shadows — Telegram defaults these bright in
+        # popup menus when undefined. Keep them subtle and dark.
+        ("shadowFg",                  bg),
+        ("boxDividerBg",              panel),
+        ("boxDividerFg",              elem),
+        ("menuBg",                    panel),
+        ("menuBgOver",                elem_hover),
+        ("menuBgRipple",              elem_sel),
+        ("menuFg",                    text_fg),
+        ("menuFgDisabled",            text_mut),
+        ("menuIconFg",                text_mut),
+        ("menuIconFgOver",            text_fg),
+        ("menuSubmenuArrowFg",        text_mut),
+
         ("mentionBg",                 elem),
         ("mentionFg",                 accent),
     ]
