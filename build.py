@@ -62,6 +62,12 @@ CHROME_KEYS = {
     "scrollbar.track.background", "scrollbar.thumb.background",
     "scrollbar.thumb.hover_background",
     "terminal.ansi.black", "terminal.ansi.dim_black",
+    # Neutral chrome borders — flatten to gray same as chrome bgs so panel
+    # separators don't read with a blue tint. Status borders (info/error/...)
+    # and focused/selected borders are NOT here — they keep hue.
+    "border", "border.variant", "border.disabled",
+    "hidden.border", "ignored.border", "unreachable.border",
+    "scrollbar.thumb.border", "scrollbar.track.border",
 }
 
 SAT_NEUTRAL_SUFFIXES = (".background", ".border")
