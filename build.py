@@ -309,10 +309,10 @@ def build_telegram(zed_theme: dict) -> str:
         ("lightButtonFg",             accent),
         ("lightButtonFgOver",         accent),
 
-        ("scrollBg",                  s("scrollbar.track.background")),
-        ("scrollBgOver",              s("scrollbar.track.background")),
-        ("scrollBarBg",               s("scrollbar.thumb.background")),
-        ("scrollBarBgOver",           s("scrollbar.thumb.hover_background")),
+        ("scrollBg",                  panel),
+        ("scrollBgOver",              elem_hover),
+        ("scrollBarBg",               text_mut),
+        ("scrollBarBgOver",           text_fg),
 
         ("boxTextFgGood",             success_fg),
         ("boxTextFgError",            error_fg),
