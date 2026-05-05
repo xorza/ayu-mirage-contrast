@@ -1,4 +1,4 @@
-.PHONY: all build zed claude telegram terminal reseed install fetch-source clean
+.PHONY: all build zed claude telegram telegram_ios terminal reseed install fetch-source clean
 
 all: build
 
@@ -16,6 +16,9 @@ claude:
 
 telegram:
 	python3 telegram/build.py
+
+telegram_ios:
+	python3 telegram_ios/build.py
 
 terminal:
 	python3 terminal/build.py
@@ -37,4 +40,4 @@ fetch-source:
 # ayu-mirage.toml is a source file (hand-edited single source of truth);
 # never delete it here.
 clean:
-	rm -f zed/ayu-mirage-high-contrast.json claude/ayu-mirage.json telegram/ayu-mirage.tdesktop-theme terminal/ayu-mirage.terminal
+	rm -f zed/ayu-mirage-high-contrast.json claude/ayu-mirage.json telegram/ayu-mirage.tdesktop-theme telegram_ios/ayu-mirage.tgios-theme terminal/ayu-mirage.terminal

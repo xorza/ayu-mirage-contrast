@@ -79,6 +79,8 @@ def build_telegram(p: Palette) -> str:
         ("activeButtonBgOver",        p.accent),
         ("activeButtonFg",            p.bg),
         ("activeButtonFgOver",        p.bg),
+        ("activeButtonSecondaryFg",       p.bg),
+        ("activeButtonSecondaryFgOver",   p.bg),
         ("lightButtonBg",             p.elem),
         ("lightButtonBgOver",         p.elem_hover),
         ("lightButtonFg",             p.accent),
