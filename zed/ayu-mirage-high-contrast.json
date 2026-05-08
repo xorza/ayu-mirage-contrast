@@ -79,7 +79,7 @@
         "terminal.ansi.bright_red": "#ff7e66ff",
         "terminal.ansi.dim_red": "#b05043ff",
         "terminal.ansi.green": "#9fd45aff",
-        "terminal.ansi.bright_green": "#f8ff6cff",
+        "terminal.ansi.bright_green": "#d8ff6cff",
         "terminal.ansi.dim_green": "#97be42ff",
         "terminal.ansi.yellow": "#ffd44aff",
         "terminal.ansi.bright_yellow": "#ffe27aff",
@@ -258,7 +258,7 @@
             "font_weight": null
           },
           "link_uri": {
-            "color": "#d9ff57ff",
+            "color": "#c9ff57ff",
             "font_style": null,
             "font_weight": null
           },
@@ -338,7 +338,7 @@
             "font_weight": null
           },
           "string": {
-            "color": "#d9ff57ff",
+            "color": "#c9ff57ff",
             "font_style": null,
             "font_weight": null
           },

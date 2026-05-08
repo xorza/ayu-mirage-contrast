@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.json (Claude Code theme)."""
+"""Read ../ayu-mirage.toml and emit ./ayu-mirage.json (Claude Code theme).
+
+Claude Code's built-in themes (see tools/claude-builtin-themes/) use the
+rgb(R,G,B) string form for color values. Hex overrides (#rrggbb) parse but
+some renderers ignore them and fall through to the base theme — so we emit
+rgb() to match the convention.
+"""
 import json
 import os
 import sys
@@ -8,12 +14,18 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from palette import Palette, load_palette
 
 
+def rgb(hex6: str) -> str:
+    h = hex6.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return f"rgb({r},{g},{b})"
+
+
 def build_claude(p: Palette) -> dict:
-    overrides = {
+    raw = {
         "background":                 p.bg,
-        "userMessageBackground":      p.elem,
-        "bashMessageBackgroundColor": p.elem,
-        "memoryBackgroundColor":      p.elem,
+        "userMessageBackground":      p.elem_active,
+        "bashMessageBackgroundColor": p.elem_active,
+        "memoryBackgroundColor":      p.elem_active,
 
         "text":         p.text,
         "inverseText":  p.bg,
@@ -41,14 +53,12 @@ def build_claude(p: Palette) -> dict:
         "promptBorderShimmer":  p.syn_type,
         "bashBorder":           p.syn_number,
 
-        "diffAdded":             p.success_bg,
-        "diffAddedDimmed":       p.success_bg,
-        "diffAddedWord":         p.success,
-        "diffAddedWordDimmed":   p.success,
-        "diffRemoved":           p.error_bg,
-        "diffRemovedDimmed":     p.error_bg,
-        "diffRemovedWord":         p.error,
-        "diffRemovedWordDimmed": p.error,
+        "diffAdded":          p.success_bg,
+        "diffAddedDimmed":    p.success_bg,
+        "diffAddedWord":      p.success,
+        "diffRemoved":        p.error_bg,
+        "diffRemovedDimmed":  p.error_bg,
+        "diffRemovedWord":    p.error,
 
         "red_FOR_SUBAGENTS_ONLY":    p.error,
         "blue_FOR_SUBAGENTS_ONLY":   p.accent,
@@ -60,6 +70,13 @@ def build_claude(p: Palette) -> dict:
         "cyan_FOR_SUBAGENTS_ONLY":   p.syn_string_regex,
         "professionalBlue":          p.accent,
     }
+    overrides = {k: rgb(v) for k, v in raw.items()}
+    # NOTE: Claude Code 2.1.x ignores `overrides` for diff line backgrounds
+    # (`diffAdded`/`diffRemoved`/`*Dimmed`); they come from the chosen `base`.
+    # `dark` paints the muted dark green/red from the binary's hardcoded
+    # palette — closest hue to our success_bg/error_bg, so we use it. The
+    # `dark-ansi` route doesn't help: the renderer drops `ansi:green` for
+    # backgrounds entirely. The `*Word` overrides DO apply.
     return {"name": "Ayu Mirage", "base": "dark", "overrides": overrides}
 
 
