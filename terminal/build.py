@@ -113,6 +113,11 @@ def build_terminal(p: Palette) -> dict[str, Any]:
         "ANSIBrightMagentaColor": c(p.ansi_magenta),
         "ANSIBrightCyanColor": c(p.syn_string_regex),
         "ANSIBrightWhiteColor": c(p.ansi_bright_white),
+        # Window geometry + close behavior — match the user's preferred shell.
+        "columnCount": 130,
+        "rowCount": 30,
+        "shellExitAction": 1,
+        "warnOnShellCloseAction": 0,
     }
 
 

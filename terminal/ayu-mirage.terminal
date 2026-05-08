@@ -201,9 +201,17 @@
 	TlNDb2xvclhOU09iamVjdNEWF1Ryb290gAESAAGGoAgRGyQpMkRITlVcaW9xc6+0vcjL
 	09zf5OYAAAAAAAABAQAAAAAAAAAZAAAAAAAAAAAAAAAAAAAA6w==
 	</data>
+	<key>columnCount</key>
+	<integer>130</integer>
 	<key>name</key>
 	<string>Ayu Mirage</string>
+	<key>rowCount</key>
+	<integer>30</integer>
+	<key>shellExitAction</key>
+	<integer>1</integer>
 	<key>type</key>
 	<string>Window Settings</string>
+	<key>warnOnShellCloseAction</key>
+	<integer>0</integer>
 </dict>
 </plist>
