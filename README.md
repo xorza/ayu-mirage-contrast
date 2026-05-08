@@ -1,26 +1,26 @@
-# ayu-mirage-contrast
+# ayu-graphite
 
-A higher-contrast variant of [Ayu Mirage](https://github.com/dempfi/ayu) for [Zed](https://zed.dev), [Claude Code](https://claude.com/claude-code), Telegram, KDE Plasma / Konsole, and macOS Terminal.
+A higher-contrast variant of [Ayu Graphite](https://github.com/dempfi/ayu) for [Zed](https://zed.dev), [Claude Code](https://claude.com/claude-code), Telegram, KDE Plasma / Konsole, and macOS Terminal.
 
 ## Layout
 
 ```
-ayu-mirage.toml                        SINGLE SOURCE OF TRUTH — hand-edited semantic palette
+ayu-graphite.toml                        SINGLE SOURCE OF TRUTH — hand-edited semantic palette
 palette.py                             dataclass + TOML loader (schema lives once)
 build.py                               orchestrator (runs every target builder)
-zed/build.py                           palette → ayu-mirage-high-contrast.json
-claude/build.py                        palette → ayu-mirage.json
-telegram/build.py                      palette → ayu-mirage.tdesktop-theme (zip)
-telegram_ios/build.py                  palette → ayu-mirage.tgios-theme
-terminal/build.py                      palette → ayu-mirage.terminal (macOS Terminal.app)
-kde/build.py                           palette → ayu-mirage.colors (Plasma color scheme)
-konsole/build.py                       palette → ayu-mirage.colorscheme
+zed/build.py                           palette → ayu-graphite.json
+claude/build.py                        palette → ayu-graphite.json
+telegram/build.py                      palette → ayu-graphite.tdesktop-theme (zip)
+telegram_ios/build.py                  palette → ayu-graphite.tgios-theme
+terminal/build.py                      palette → ayu-graphite.terminal (macOS Terminal.app)
+kde/build.py                           palette → ayu-graphite.colors (Plasma color scheme)
+konsole/build.py                       palette → ayu-graphite.colorscheme
 tools/ayu-source.json                  reference snapshot of upstream Zed Ayu (not read at build time)
 tools/render_palette.py                renders palette.png — every token as a labeled swatch
 Makefile                               convenience targets
 ```
 
-The model is dead simple: `ayu-mirage.toml` is the only thing you edit. Every target builder is a pure transformer — it loads the TOML and writes its target file. No pipeline, no upstream JSON, no internal computation. To shift the theme, edit a hex value in the TOML and run `make`.
+The model is dead simple: `ayu-graphite.toml` is the only thing you edit. Every target builder is a pure transformer — it loads the TOML and writes its target file. No pipeline, no upstream JSON, no internal computation. To shift the theme, edit a hex value in the TOML and run `make`.
 
 To add a new target (Sublime, iTerm, …), drop a `<target>/build.py` next to its sibling outputs (copy `claude/build.py` as a starting point — it's the smallest), and add the directory name to `TARGETS` in the root `build.py`.
 
@@ -32,11 +32,11 @@ make install    # copy generated themes into their app dirs (Telegram is manual)
 ./install.sh    # same as `make install`, without make
 ```
 
-In Zed: settings → theme → "Ayu Mirage High Contrast".
-In Claude Code: `/config` → theme → "Ayu Mirage".
-In Telegram Desktop: Settings → Chat Settings → scroll down → "Browse..." next to Custom theme, pick `telegram/ayu-mirage.tdesktop-theme`.
-In Telegram iOS: send `telegram_ios/ayu-mirage.tgios-theme` to Saved Messages from any other client (or AirDrop it to your phone), tap the file, then "Apply Theme".
-In macOS Terminal: double-click `terminal/ayu-mirage.terminal` (or `open terminal/ayu-mirage.terminal`) — Terminal imports it as a profile. Then Terminal → Settings → Profiles → "Ayu Mirage" → "Default" to make it the default.
+In Zed: settings → theme → "Ayu Graphite".
+In Claude Code: `/config` → theme → "Ayu Graphite".
+In Telegram Desktop: Settings → Chat Settings → scroll down → "Browse..." next to Custom theme, pick `telegram/ayu-graphite.tdesktop-theme`.
+In Telegram iOS: send `telegram_ios/ayu-graphite.tgios-theme` to Saved Messages from any other client (or AirDrop it to your phone), tap the file, then "Apply Theme".
+In macOS Terminal: double-click `terminal/ayu-graphite.terminal` (or `open terminal/ayu-graphite.terminal`) — Terminal imports it as a profile. Then Terminal → Settings → Profiles → "Ayu Graphite" → "Default" to make it the default.
 
 ## Claude port
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.terminal (macOS Terminal.app).
+"""Read ../ayu-graphite.toml and emit ./ayu-graphite.terminal (macOS Terminal.app).
 
 A .terminal file is an XML plist. Each color is stored as bytes containing a
 NSKeyedArchiver binary plist of an NSColor (sRGB). We hand-build that inner
@@ -86,7 +86,7 @@ FONT_SIZE = 15
 def build_terminal(p: Palette) -> dict[str, Any]:
     c = nscolor_archive
     return {
-        "name": "Ayu Mirage",
+        "name": "Ayu Graphite",
         "type": "Window Settings",
         "ProfileCurrentVersion": 2.09,
         "Font": nsfont_archive(FONT_NAME, FONT_SIZE),
@@ -124,8 +124,8 @@ def build_terminal(p: Palette) -> dict[str, Any]:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
-    out = os.path.join(here, "ayu-mirage.terminal")
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
+    out = os.path.join(here, "ayu-graphite.terminal")
     with open(out, "wb") as f:
         plistlib.dump(build_terminal(p), f)
     print(f"wrote {out}")

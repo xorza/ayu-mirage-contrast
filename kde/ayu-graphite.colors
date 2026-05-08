@@ -131,8 +131,8 @@ ForegroundPositive=218,255,88
 ForegroundVisited=216,151,255
 
 [General]
-ColorScheme=AyuMirageHighContrast
-Name=Ayu Mirage High Contrast
+ColorScheme=AyuGraphite
+Name=Ayu Graphite
 shadeSortColumn=true
 
 [KDE]

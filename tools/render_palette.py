@@ -1,4 +1,4 @@
-"""Render ayu-mirage.toml as a PNG swatch sheet grouped by section."""
+"""Render ayu-graphite.toml as a PNG swatch sheet grouped by section."""
 import os
 import sys
 try:
@@ -8,7 +8,7 @@ except ModuleNotFoundError:
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TOML = os.path.join(ROOT, "ayu-mirage.toml")
+TOML = os.path.join(ROOT, "ayu-graphite.toml")
 OUT = os.path.join(ROOT, "palette.png")
 
 SWATCH_W = 220

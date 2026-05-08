@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.tgios-theme (Telegram iOS).
+"""Read ../ayu-graphite.toml and emit ./ayu-graphite.tgios-theme (Telegram iOS).
 
 Format reverse-engineered from a known-working canonical sample
 (aznotas/rose-pine-telegram-ios) and confirmed against
@@ -39,7 +39,7 @@ def build_ios(p: Palette) -> dict:
     incoming_bubble = p.surface
     outgoing_bubble = p.elem
     return {
-        "name": "Ayu Mirage High Contrast",
+        "name": "Ayu Graphite",
         "basedOn": "night",
         "dark": True,
         "intro": {
@@ -453,8 +453,8 @@ def render(node, indent: int = 0) -> str:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
-    out = os.path.join(here, "ayu-mirage.tgios-theme")
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
+    out = os.path.join(here, "ayu-graphite.tgios-theme")
     with open(out, "w") as f:
         f.write(render(build_ios(p)) + "\n")
     print(f"wrote {out}")

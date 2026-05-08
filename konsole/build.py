@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.colorscheme (KDE Konsole).
+"""Read ../ayu-graphite.toml and emit ./ayu-graphite.colorscheme (KDE Konsole).
 
 Format mirrors KDE's official Breeze.colorscheme: an INI file with
 [Background], [Foreground], [Color0]..[Color7] (each with Faint/Intense
@@ -66,7 +66,7 @@ def build_konsole(p: Palette) -> dict[str, dict[str, str]]:
         sections[f"Color{i}Intense"] = {"Color": rgb(intense[i])}
 
     sections["General"] = {
-        "Description": "Ayu Mirage High Contrast",
+        "Description": "Ayu Graphite",
         "Opacity":     "1",
         "Wallpaper":   "",
     }
@@ -86,8 +86,8 @@ def render(scheme: dict[str, dict[str, str]]) -> str:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
-    out = os.path.join(here, "ayu-mirage.colorscheme")
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
+    out = os.path.join(here, "ayu-graphite.colorscheme")
     with open(out, "w") as f:
         f.write(render(build_konsole(p)))
     print(f"wrote {out}")

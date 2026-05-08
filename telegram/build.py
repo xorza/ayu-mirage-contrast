@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.tdesktop-theme.
+"""Read ../ayu-graphite.toml and emit ./ayu-graphite.tdesktop-theme.
 
 The output is a zip archive (the .tdesktop-theme extension is what Telegram
 expects) containing colors.tdesktop-theme + a small solid-color background.png
@@ -183,7 +183,7 @@ def build_telegram(p: Palette) -> str:
         ("msgStickerOverlay",                 "#00000000"),
         ("overviewPhotoSelectOverlay",        "#00000000"),
     ]
-    lines = ["// Ayu Mirage High Contrast — Telegram Desktop palette", ""]
+    lines = ["// Ayu Graphite — Telegram Desktop palette", ""]
     lines += [f"{k}: {v};" for k, v in pairs]
     return "\n".join(lines) + "\n"
 
@@ -222,12 +222,12 @@ def write_telegram_zip(path: str, palette_text: str, bg_hex: str) -> None:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
     palette_text = build_telegram(p)
-    write_telegram_zip(os.path.join(here, "ayu-mirage.tdesktop-theme"),
+    write_telegram_zip(os.path.join(here, "ayu-graphite.tdesktop-theme"),
                        palette_text, p.bg)
     # Mirror the same palette text uncompressed for easy inspection / grep.
-    plain = os.path.join(here, "ayu-mirage.tdesktop-theme.txt")
+    plain = os.path.join(here, "ayu-graphite.tdesktop-theme.txt")
     with open(plain, "w") as f:
         f.write(palette_text)
 

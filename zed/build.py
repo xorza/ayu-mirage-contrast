@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Pure transformer: ../ayu-mirage.toml -> ./ayu-mirage-high-contrast.json.
+"""Pure transformer: ../ayu-graphite.toml -> ./ayu-graphite.json.
 
 No upstream JSON, no pipeline, no math beyond appending alpha hex digits.
 Every Zed style key is mapped explicitly to a palette token (or a constant
@@ -34,7 +34,7 @@ def syn(color: str, italic: bool = False, bold: bool = False) -> dict[str, Any]:
 
 def build_zed(p: Palette) -> dict[str, Any]:
     # Every color routes through the palette. New visual roles get a token in
-    # ayu-mirage.toml first, then a reference here — no inline hex literals.
+    # ayu-graphite.toml first, then a reference here — no inline hex literals.
     style: dict[str, Any] = {
         "background":              opaque(p.title_bar),
         "border":                  opaque(p.border),
@@ -187,10 +187,10 @@ def build_zed(p: Palette) -> dict[str, Any]:
     }
     return {
         "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
-        "name": "Ayu Mirage High Contrast",
+        "name": "Ayu Graphite",
         "author": "xxorza",
         "themes": [{
-            "name": "Ayu Mirage High Contrast",
+            "name": "Ayu Graphite",
             "appearance": "dark",
             "style": style,
         }],
@@ -266,8 +266,8 @@ def _build_syntax(p: Palette) -> dict:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
-    out = os.path.join(here, "ayu-mirage-high-contrast.json")
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
+    out = os.path.join(here, "ayu-graphite.json")
     with open(out, "w") as f:
         json.dump(build_zed(p), f, indent=2)
     print(f"wrote {out}")

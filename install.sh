@@ -13,8 +13,8 @@ install_file() {
     cp "$src" "$dst"
 }
 
-install_file "$here/zed/ayu-mirage-high-contrast.json" "$zed_dir/ayu-mirage-high-contrast.json"
-install_file "$here/claude/ayu-mirage.json"            "$claude_dir/ayu-mirage.json"
+install_file "$here/zed/ayu-graphite.json" "$zed_dir/ayu-graphite.json"
+install_file "$here/claude/ayu-graphite.json"            "$claude_dir/ayu-graphite.json"
 
 echo "copied themes into $zed_dir and $claude_dir"
 
@@ -27,11 +27,11 @@ echo "copied themes into $zed_dir and $claude_dir"
 if [[ "$(uname)" == "Linux" ]]; then
     plasma_dir="$HOME/.local/share/color-schemes"
     konsole_dir="$HOME/.local/share/konsole"
-    install_file "$here/kde/ayu-mirage.colors"          "$plasma_dir/ayu-mirage.colors"
-    install_file "$here/konsole/ayu-mirage.colorscheme" "$konsole_dir/ayu-mirage.colorscheme"
+    install_file "$here/kde/ayu-graphite.colors"          "$plasma_dir/ayu-graphite.colors"
+    install_file "$here/konsole/ayu-graphite.colorscheme" "$konsole_dir/ayu-graphite.colorscheme"
     echo "copied themes into $plasma_dir and $konsole_dir"
 fi
 
 # Telegram Desktop has no scriptable theme-import path — load
-# telegram/ayu-mirage.tdesktop-theme via Settings → Chat Settings → Custom theme.
-echo "telegram/ayu-mirage.tdesktop-theme: load it manually via Telegram → Settings → Chat Settings"
+# telegram/ayu-graphite.tdesktop-theme via Settings → Chat Settings → Custom theme.
+echo "telegram/ayu-graphite.tdesktop-theme: load it manually via Telegram → Settings → Chat Settings"

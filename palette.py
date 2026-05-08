@@ -1,6 +1,6 @@
 """Shared palette dataclass + TOML loader.
 
-Single source of truth for the shape of ayu-mirage.toml. Every target builder
+Single source of truth for the shape of ayu-graphite.toml. Every target builder
 imports from here so adding a token is a one-file edit instead of a five-file
 ritual."""
 import dataclasses

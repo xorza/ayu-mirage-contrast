@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.json (Claude Code theme).
+"""Read ../ayu-graphite.toml and emit ./ayu-graphite.json (Claude Code theme).
 
 Claude Code's built-in themes (see tools/claude-builtin-themes/) use the
 rgb(R,G,B) string form for color values. Hex overrides (#rrggbb) parse but
@@ -77,14 +77,14 @@ def build_claude(p: Palette) -> dict:
     # palette — closest hue to our success_bg/error_bg, so we use it. The
     # `dark-ansi` route doesn't help: the renderer drops `ansi:green` for
     # backgrounds entirely. The `*Word` overrides DO apply.
-    return {"name": "Ayu Mirage", "base": "dark", "overrides": overrides}
+    return {"name": "Ayu Graphite", "base": "dark", "overrides": overrides}
 
 
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
-    out = os.path.join(here, "ayu-mirage.json")
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
+    out = os.path.join(here, "ayu-graphite.json")
     with open(out, "w") as f:
         json.dump(build_claude(p), f, indent=2)
     print(f"wrote {out}")

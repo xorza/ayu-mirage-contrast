@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read ../ayu-mirage.toml and emit ./ayu-mirage.colors (KDE Plasma).
+"""Read ../ayu-graphite.toml and emit ./ayu-graphite.colors (KDE Plasma).
 
 Format is the standard KDE color scheme INI: one section per color set
 (View / Window / Button / Selection / Tooltip / Header / Complementary)
@@ -72,8 +72,8 @@ def build_kde(p: Palette) -> dict[str, dict[str, str]]:
         "Colors:View":          color_set(p, bg=p.bg,        alt=p.surface,    fg=p.text),
         "Colors:Window":        color_set(p, bg=p.panel,     alt=p.elem,       fg=p.text),
         "General": {
-            "ColorScheme":     "AyuMirageHighContrast",
-            "Name":            "Ayu Mirage High Contrast",
+            "ColorScheme":     "AyuGraphite",
+            "Name":            "Ayu Graphite",
             "shadeSortColumn": "true",
         },
         "KDE": {
@@ -103,8 +103,8 @@ def render(scheme: dict[str, dict[str, str]]) -> str:
 def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
-    p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
-    out = os.path.join(here, "ayu-mirage.colors")
+    p = load_palette(os.path.join(repo, "ayu-graphite.toml"))
+    out = os.path.join(here, "ayu-graphite.colors")
     with open(out, "w") as f:
         f.write(render(build_kde(p)))
     print(f"wrote {out}")

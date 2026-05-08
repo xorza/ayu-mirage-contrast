@@ -1,4 +1,4 @@
-// Ayu Mirage High Contrast — Telegram Desktop palette
+// Ayu Graphite — Telegram Desktop palette
 
 windowBg: #1f1e1d;
 windowBgOver: #2e2d2c;

@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Build all theme outputs.
 
-Each per-target builder is independent: it reads ../ayu-mirage.toml (the
+Each per-target builder is independent: it reads ../ayu-graphite.toml (the
 hand-edited single source of truth) and emits its own theme file. There is no
 order dependency between them — this script just runs them all for convenience.
 
-  zed/build.py          palette -> zed/ayu-mirage-high-contrast.json
-  claude/build.py       palette -> claude/ayu-mirage.json
-  telegram/build.py     palette -> telegram/ayu-mirage.tdesktop-theme
-  telegram_ios/build.py palette -> telegram_ios/ayu-mirage.tgios-theme
-  terminal/build.py     palette -> terminal/ayu-mirage.terminal
-  kde/build.py          palette -> kde/ayu-mirage.colors
-  konsole/build.py      palette -> konsole/ayu-mirage.colorscheme
+  zed/build.py          palette -> zed/ayu-graphite.json
+  claude/build.py       palette -> claude/ayu-graphite.json
+  telegram/build.py     palette -> telegram/ayu-graphite.tdesktop-theme
+  telegram_ios/build.py palette -> telegram_ios/ayu-graphite.tgios-theme
+  terminal/build.py     palette -> terminal/ayu-graphite.terminal
+  kde/build.py          palette -> kde/ayu-graphite.colors
+  konsole/build.py      palette -> konsole/ayu-graphite.colorscheme
 
 The TOML is hand-edited; nothing in this repo writes back to it."""
 import os
