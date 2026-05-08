@@ -156,6 +156,32 @@ def build_telegram(p: Palette) -> str:
         ("searchedBarFg",                     p.text_muted),
         ("reportSpamBg",                      p.panel),
         ("reportSpamFg",                      p.text),
+
+        # In-bubble file download-circle bg. The msgFile{1..4}* slots only
+        # drive the shared-Files-tab thumbnails; in-chat file circles route
+        # through msgFile{In,Out}Bg{,Over,Selected} (verified against
+        # tdesktop's history_view_document.cpp). Without these the chat falls
+        # back to upstream blue defaults. Selected variants alias to the
+        # non-selected so multi-select doesn't shift the color.
+        ("msgFileInBg",                       p.accent),
+        ("msgFileInBgOver",                   p.accent),
+        ("msgFileInBgSelected",               "msgFileInBg"),
+        ("msgFileOutBg",                      p.accent),
+        ("msgFileOutBgOver",                  p.accent),
+        ("msgFileOutBgSelected",              "msgFileOutBg"),
+
+        # Shared-files-tab thumbnail parity (msgFile1..4 slots), in case the
+        # user lands there. Upstream darkens the selected variant.
+        ("msgFile1BgSelected",                "msgFile1Bg"),
+        ("msgFile2BgSelected",                "msgFile2Bg"),
+        ("msgFile3BgSelected",                "msgFile3Bg"),
+        ("msgFile4BgSelected",                "msgFile4Bg"),
+
+        # Selection overlays — translucent blue layers Telegram composites on
+        # top of selected media. Zeroed so colors don't shift on selection.
+        ("msgSelectOverlay",                  "#00000000"),
+        ("msgStickerOverlay",                 "#00000000"),
+        ("overviewPhotoSelectOverlay",        "#00000000"),
     ]
     lines = ["// Ayu Mirage High Contrast — Telegram Desktop palette", ""]
     lines += [f"{k}: {v};" for k, v in pairs]
@@ -197,8 +223,13 @@ def main() -> None:
     here = os.path.dirname(os.path.abspath(__file__))
     repo = os.path.dirname(here)
     p = load_palette(os.path.join(repo, "ayu-mirage.toml"))
+    palette_text = build_telegram(p)
     write_telegram_zip(os.path.join(here, "ayu-mirage.tdesktop-theme"),
-                       build_telegram(p), p.bg)
+                       palette_text, p.bg)
+    # Mirror the same palette text uncompressed for easy inspection / grep.
+    plain = os.path.join(here, "ayu-mirage.tdesktop-theme.txt")
+    with open(plain, "w") as f:
+        f.write(palette_text)
 
 
 if __name__ == "__main__":
