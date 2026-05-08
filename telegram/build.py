@@ -98,15 +98,15 @@ def build_telegram(p: Palette) -> str:
 
         ("boxTextFgGood",             p.success),
 
-        # Outgoing message check ticks (✓ / ✓✓) — use brighter ANSI green so
-        # the read indicator pops against the bubble bg.
-        ("historyOutIconFg",          p.ansi_bright_green),
-        ("historyOutIconFgSelected",  p.ansi_bright_green),
-        ("historySendingOutIconFg",   p.ansi_bright_green),
-        ("historyIconFgInverted",     p.ansi_bright_green),
-        ("dialogsSentIconFg",         p.ansi_bright_green),
-        ("dialogsSentIconFgOver",     p.ansi_bright_green),
-        ("dialogsSentIconFgActive",   p.ansi_bright_green),
+        # Outgoing message check ticks (✓ / ✓✓) — palette green so bubble +
+        # chat-list match each other and the terminal's ANSI green.
+        ("historyOutIconFg",          p.success),
+        ("historyOutIconFgSelected",  p.success),
+        ("historySendingOutIconFg",   p.success),
+        ("historyIconFgInverted",     p.success),
+        ("dialogsSentIconFg",         p.success),
+        ("dialogsSentIconFgOver",     p.success),
+        ("dialogsSentIconFgActive",   p.success),
         ("boxTextFgError",            p.error),
         ("activeLineFgError",         p.error),
         ("attentionButtonFg",         p.warning),
