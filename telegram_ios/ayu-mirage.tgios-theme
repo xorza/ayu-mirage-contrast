@@ -139,7 +139,7 @@ chatList:
   messageText: aaaaa8
   messageHighlightedText: e2dfd3
   messageDraftText: ffd44a
-  checkmark: 9fd45a
+  checkmark: d8ff6c
   pendingIndicator: aaaaa8
   failedFill: ff5e44
   failedFg: e2dfd3
@@ -305,7 +305,7 @@ chat:
         reactionActiveFg: 1f1e1d
     infoPrimaryText: e2dfd3
     infoLinkText: 59d4ff
-    outgoingCheck: 9fd45a
+    outgoingCheck: d8ff6c
     mediaDateAndStatusBg: 7f000000
     mediaDateAndStatusText: e2dfd3
     shareButtonBg:
