@@ -75,6 +75,13 @@ def build_telegram(p: Palette) -> str:
         ("msgServiceBg",              p.panel),
         ("msgServiceFg",              p.text_muted),
 
+        # Bubble drop-shadows — upstream night palette tints these greenish/blue.
+        # Map all four to bg so any shadow that does render reads as neutral dark.
+        ("msgInShadow",               p.elem_active),
+        ("msgInShadowSelected",       p.elem_active),
+        ("msgOutShadow",              p.elem_active),
+        ("msgOutShadowSelected",      p.elem_active),
+
         # "Unread messages" divider in chat view — defaults render near-white.
         ("historyUnreadBarBg",        p.panel),
         ("historyUnreadBarBorder",    p.border),
