@@ -144,11 +144,11 @@ chatList:
   failedFill: ff5e44
   failedFg: e2dfd3
   muteIcon: aaaaa8
-  unreadBadgeActiveBg: 59d4ff
+  unreadBadgeActiveBg: 98e1f3
   unreadBadgeActiveText: 1f1e1d
   unreadBadgeInactiveBg: aaaaa8
   unreadBadgeInactiveText: 1f1e1d
-  reactionBadgeActiveBg: 59d4ff
+  reactionBadgeActiveBg: 98e1f3
   pinnedBadge: aaaaa8
   pinnedSearchBar: 262524
   regularSearchBar: 262524
@@ -177,7 +177,7 @@ chat:
         withWp:
           bg: 262524
           gradientBg: 262524
-          highlightedBg: 2e2d2c
+          highlightedBg: 353433
           stroke: 262524
           reactionInactiveBg: 19e2dfd3
           reactionInactiveFg: e2dfd3
@@ -186,7 +186,7 @@ chat:
         withoutWp:
           bg: 262524
           gradientBg: 262524
-          highlightedBg: 2e2d2c
+          highlightedBg: 353433
           stroke: 262524
           reactionInactiveBg: 19e2dfd3
           reactionInactiveFg: e2dfd3
@@ -194,26 +194,26 @@ chat:
           reactionActiveFg: 1f1e1d
       primaryText: e2dfd3
       secondaryText: 99e2dfd3
-      linkText: 59d4ff
-      linkHighlight: 7f59d4ff
+      linkText: 98e1f3
+      linkHighlight: 7f98e1f3
       scam: ff5e44
       textHighlight: daff58
-      accentText: 59d4ff
-      accentControl: 59d4ff
-      mediaActiveControl: 59d4ff
-      mediaInactiveControl: 7f59d4ff
+      accentText: 98e1f3
+      accentControl: 98e1f3
+      mediaActiveControl: 98e1f3
+      mediaInactiveControl: 7f98e1f3
       mediaControlInnerBg: 262524
       pendingActivity: 7fe2dfd3
-      fileTitle: 59d4ff
+      fileTitle: 98e1f3
       fileDescription: 99e2dfd3
       fileDuration: 99e2dfd3
       mediaPlaceholder: 262524
       polls:
         radioButton: aaaaa8
-        radioProgress: 59d4ff
-        highlight: 1e59d4ff
+        radioProgress: 98e1f3
+        highlight: 1e98e1f3
         separator: 262524
-        bar: 59d4ff
+        bar: 98e1f3
         barIconForeground: 1f1e1d
         barPositive: daff58
         barNegative: ff5e44
@@ -226,14 +226,14 @@ chat:
       actionButtonsText:
         withWp: e2dfd3
         withoutWp: e2dfd3
-      textSelection: 3359d4ff
-      textSelectionKnob: 59d4ff
+      textSelection: 3398e1f3
+      textSelectionKnob: 98e1f3
     outgoing:
       bubble:
         withWp:
           bg: 262524
           gradientBg: 262524
-          highlightedBg: 2e2d2c
+          highlightedBg: 353433
           stroke: 262524
           reactionInactiveBg: 19e2dfd3
           reactionInactiveFg: e2dfd3
@@ -242,7 +242,7 @@ chat:
         withoutWp:
           bg: 262524
           gradientBg: 262524
-          highlightedBg: 2e2d2c
+          highlightedBg: 353433
           stroke: 262524
           reactionInactiveBg: 19e2dfd3
           reactionInactiveFg: e2dfd3
@@ -250,26 +250,26 @@ chat:
           reactionActiveFg: 1f1e1d
       primaryText: e2dfd3
       secondaryText: 99e2dfd3
-      linkText: e2dfd3
-      linkHighlight: 7fe2dfd3
+      linkText: 98e1f3
+      linkHighlight: 7f98e1f3
       scam: ff5e44
       textHighlight: daff58
-      accentText: e2dfd3
-      accentControl: e2dfd3
-      mediaActiveControl: e2dfd3
-      mediaInactiveControl: 7fe2dfd3
+      accentText: 98e1f3
+      accentControl: 98e1f3
+      mediaActiveControl: 98e1f3
+      mediaInactiveControl: 7f98e1f3
       mediaControlInnerBg: 262524
       pendingActivity: 7fe2dfd3
-      fileTitle: e2dfd3
+      fileTitle: 98e1f3
       fileDescription: 99e2dfd3
       fileDuration: 99e2dfd3
       mediaPlaceholder: 262524
       polls:
         radioButton: aaaaa8
-        radioProgress: e2dfd3
-        highlight: 1ee2dfd3
+        radioProgress: 98e1f3
+        highlight: 1e98e1f3
         separator: 262524
-        bar: e2dfd3
+        bar: 98e1f3
         barIconForeground: 1f1e1d
         barPositive: daff58
         barNegative: ff5e44
@@ -282,8 +282,8 @@ chat:
       actionButtonsText:
         withWp: e2dfd3
         withoutWp: e2dfd3
-      textSelection: 33e2dfd3
-      textSelectionKnob: e2dfd3
+      textSelection: 3398e1f3
+      textSelectionKnob: 98e1f3
     freeform:
       withWp:
         bg: 262524
@@ -304,7 +304,7 @@ chat:
         reactionActiveBg: 59d4ff
         reactionActiveFg: 1f1e1d
     infoPrimaryText: e2dfd3
-    infoLinkText: 59d4ff
+    infoLinkText: 98e1f3
     outgoingCheck: daff58
     mediaDateAndStatusBg: 7f000000
     mediaDateAndStatusText: e2dfd3
@@ -338,14 +338,14 @@ chat:
     components:
       withDefaultWp:
         bg: 262524
-        primaryText: e2dfd3
+        primaryText: aaaaa8
         linkHighlight: 1ee2dfd3
         scam: ff5e44
         dateFillStatic: 99262524
         dateFillFloat: 33262524
       withCustomWp:
         bg: 262524
-        primaryText: e2dfd3
+        primaryText: aaaaa8
         linkHighlight: 1ee2dfd3
         scam: ff5e44
         dateFillStatic: 99262524

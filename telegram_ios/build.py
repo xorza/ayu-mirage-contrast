@@ -31,6 +31,11 @@ def a(aa: str, color: str) -> str:
 
 def build_ios(p: Palette) -> dict:
     accent = p.accent
+    # Desktop reserves `accent` (bright cyan_500) for filled UI fg
+    # (activeButton, msgFile circles) and uses `ansi_cyan` (softer cyan_300)
+    # for inline text accents — unread bg, mentions, reply bars, service text,
+    # light-button fg. Mirror that split here so both targets read the same.
+    inline_accent = p.ansi_cyan
     incoming_bubble = p.surface
     outgoing_bubble = p.elem
     return {
@@ -177,11 +182,11 @@ def build_ios(p: Palette) -> dict:
             "failedFill": h(p.error),
             "failedFg": h(p.text),
             "muteIcon": h(p.text_muted),
-            "unreadBadgeActiveBg": h(accent),
+            "unreadBadgeActiveBg": h(p.ansi_cyan),
             "unreadBadgeActiveText": h(p.bg),
             "unreadBadgeInactiveBg": h(p.text_muted),
             "unreadBadgeInactiveText": h(p.bg),
-            "reactionBadgeActiveBg": h(accent),
+            "reactionBadgeActiveBg": h(p.ansi_cyan),
             "pinnedBadge": h(p.text_muted),
             "pinnedSearchBar": h(p.elem),
             "regularSearchBar": h(p.elem),
@@ -204,14 +209,14 @@ def build_ios(p: Palette) -> dict:
             "defaultWallpaper": f"ff{h(p.bg)}",
             "animateMessageColors": False,
             "message": {
-                "incoming":  _bubble_side(p, incoming_bubble, accent, outgoing=False),
-                "outgoing":  _bubble_side(p, outgoing_bubble, p.text, outgoing=True),
+                "incoming":  _bubble_side(p, incoming_bubble, inline_accent, outgoing=False),
+                "outgoing":  _bubble_side(p, outgoing_bubble, inline_accent, outgoing=True),
                 "freeform": {
                     "withWp":    _freeform(p),
                     "withoutWp": _freeform(p),
                 },
                 "infoPrimaryText": h(p.text),
-                "infoLinkText": h(accent),
+                "infoLinkText": h(inline_accent),
                 "outgoingCheck": h(p.chat_check),
                 "mediaDateAndStatusBg": a("7f", p.overlay_black),
                 "mediaDateAndStatusText": h(p.text),
@@ -393,7 +398,7 @@ def _bubble(p: Palette, bg: str) -> dict:
     return {
         "bg": h(bg),
         "gradientBg": h(bg),
-        "highlightedBg": h(p.elem_hover),
+        "highlightedBg": h(p.elem_active),
         "stroke": h(bg),
         "reactionInactiveBg": a("19", p.text),
         "reactionInactiveFg": h(p.text),
@@ -418,7 +423,7 @@ def _freeform(p: Palette) -> dict:
 def _service_components(p: Palette) -> dict:
     return {
         "bg": h(p.panel),
-        "primaryText": h(p.text),
+        "primaryText": h(p.text_muted),
         "linkHighlight": a("1e", p.text),
         "scam": h(p.error),
         "dateFillStatic": a("99", p.panel),
