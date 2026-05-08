@@ -1,4 +1,4 @@
-.PHONY: all deps build zed claude telegram telegram_ios terminal kde konsole reseed install fetch-source clean
+.PHONY: all deps build zed claude telegram telegram_ios terminal kde konsole install clean
 
 all: build
 
@@ -33,19 +33,9 @@ kde:
 konsole:
 	python3 konsole/build.py
 
-# One-shot: re-seed ayu-mirage.toml from upstream tools/ayu-source.json by
-# running the legacy contrast pipeline. Review the diff before committing.
-reseed:
-	python3 tools/import_from_zed.py
-
 # Copy generated themes into Zed and Claude theme dirs.
 install: all
 	./install.sh
-
-# Refresh the upstream Zed Ayu source.
-fetch-source:
-	curl -fsSL https://raw.githubusercontent.com/zed-industries/zed/main/assets/themes/ayu/ayu.json > tools/ayu-source.json
-	@echo "updated tools/ayu-source.json"
 
 # ayu-mirage.toml is a source file (hand-edited single source of truth);
 # never delete it here.

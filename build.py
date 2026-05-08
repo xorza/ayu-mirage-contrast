@@ -13,8 +13,7 @@ order dependency between them — this script just runs them all for convenience
   kde/build.py          palette -> kde/ayu-mirage.colors
   konsole/build.py      palette -> konsole/ayu-mirage.colorscheme
 
-To re-seed ayu-mirage.toml from upstream Zed Ayu, run tools/import_from_zed.py
-(or `make reseed`). That is the only thing that writes the palette."""
+The TOML is hand-edited; nothing in this repo writes back to it."""
 import os
 import subprocess
 import sys

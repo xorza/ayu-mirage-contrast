@@ -1,40 +1,35 @@
 # ayu-mirage-contrast
 
-A higher-contrast variant of [Ayu Mirage](https://github.com/dempfi/ayu) for [Zed](https://zed.dev) and [Claude Code](https://claude.com/claude-code), generated from the upstream Zed theme by a small Python pipeline.
+A higher-contrast variant of [Ayu Mirage](https://github.com/dempfi/ayu) for [Zed](https://zed.dev), [Claude Code](https://claude.com/claude-code), Telegram, KDE Plasma / Konsole, and macOS Terminal.
 
 ## Layout
 
 ```
-ayu-mirage.toml                        SINGLE SOURCE OF TRUTH — hand-edited semantic palette (~45 tokens)
+ayu-mirage.toml                        SINGLE SOURCE OF TRUTH — hand-edited semantic palette
+palette.py                             dataclass + TOML loader (schema lives once)
 build.py                               orchestrator (runs every target builder)
 zed/build.py                           palette → ayu-mirage-high-contrast.json
 claude/build.py                        palette → ayu-mirage.json
 telegram/build.py                      palette → ayu-mirage.tdesktop-theme (zip)
-telegram_ios/build.py                  palette → ayu-mirage.tgios-theme (Telegram iOS)
+telegram_ios/build.py                  palette → ayu-mirage.tgios-theme
 terminal/build.py                      palette → ayu-mirage.terminal (macOS Terminal.app)
-zed/ayu-mirage-high-contrast.json      generated Zed theme
-claude/ayu-mirage.json                 generated Claude theme
-telegram/ayu-mirage.tdesktop-theme     generated Telegram Desktop theme
-telegram_ios/ayu-mirage.tgios-theme    generated Telegram iOS theme
-terminal/ayu-mirage.terminal           generated macOS Terminal theme
-tools/ayu-source.json                    upstream Zed Ayu (only used by tools/import_from_zed.py)
-tools/import_from_zed.py               one-shot pipeline: tools/ayu-source.json → ayu-mirage.toml
+kde/build.py                           palette → ayu-mirage.colors (Plasma color scheme)
+konsole/build.py                       palette → ayu-mirage.colorscheme
+tools/ayu-source.json                  reference snapshot of upstream Zed Ayu (not read at build time)
+tools/render_palette.py                renders palette.png — every token as a labeled swatch
 Makefile                               convenience targets
 ```
 
-The model is dead simple now: `ayu-mirage.toml` is the only thing you edit. Every target builder is a pure transformer — it loads the TOML and writes its target file. No pipeline, no upstream JSON, no internal computation. To shift the theme, edit a hex value in the TOML and run `make`.
-
-The contrast pipeline (`GAMMA`, `K_BG`, chrome flatten, accent desat, border darken, …) lives in `tools/import_from_zed.py`. Run `make reseed` only when you want to refresh the palette from a new upstream Ayu snapshot — it overwrites `ayu-mirage.toml`, so review the diff before committing.
+The model is dead simple: `ayu-mirage.toml` is the only thing you edit. Every target builder is a pure transformer — it loads the TOML and writes its target file. No pipeline, no upstream JSON, no internal computation. To shift the theme, edit a hex value in the TOML and run `make`.
 
 To add a new target (Sublime, iTerm, …), drop a `<target>/build.py` next to its sibling outputs (copy `claude/build.py` as a starting point — it's the smallest), and add the directory name to `TARGETS` in the root `build.py`.
 
 ## Usage
 
 ```sh
-make            # build both themes
-make install    # copy generated themes into ~/.config/zed/themes and ~/.claude/themes
+make            # build every target
+make install    # copy generated themes into their app dirs (Telegram is manual)
 ./install.sh    # same as `make install`, without make
-make fetch-source   # refresh tools/ayu-source.json from zed-industries/zed main
 ```
 
 In Zed: settings → theme → "Ayu Mirage High Contrast".
@@ -42,30 +37,6 @@ In Claude Code: `/config` → theme → "Ayu Mirage".
 In Telegram Desktop: Settings → Chat Settings → scroll down → "Browse..." next to Custom theme, pick `telegram/ayu-mirage.tdesktop-theme`.
 In Telegram iOS: send `telegram_ios/ayu-mirage.tgios-theme` to Saved Messages from any other client (or AirDrop it to your phone), tap the file, then "Apply Theme".
 In macOS Terminal: double-click `terminal/ayu-mirage.terminal` (or `open terminal/ayu-mirage.terminal`) — Terminal imports it as a profile. Then Terminal → Settings → Profiles → "Ayu Mirage" → "Default" to make it the default.
-
-## Tuning
-
-Knobs at the top of `tools/import_from_zed.py` (only used during re-seed):
-
-| Knob | Effect |
-|---|---|
-| `GAMMA` | > 1 brightens midtones (lifts dark backgrounds). |
-| `K_BG` | S-curve strength on chrome — stronger means deeper blacks and brighter chrome highs. |
-| `K_FG` | S-curve strength on foreground — kept lower so saturated channels don't clamp to 255. |
-| `K_DIAG` | S-curve strength on diagnostic tints (`info.background`, `error.background`, …). Gentler than `K_BG` so the dim channel doesn't clip to 0 and oversaturate. |
-| `MID` | S-curve midpoint. Lower than 0.5 because the theme is dark-leaning. |
-| `BG_SAT` | Chroma kept on chrome backgrounds. 0 = pure neutral gray. |
-| `FG_SAT` | Chroma multiplier on foreground/accent colors. |
-| `FG_LIGHT` | Lightness multiplier on chromatic foreground. < 1 deepens pastels into vivid; > 1 brightens toward white. |
-| `CHROME_TARGET` | RGB component for the mid-gray every chrome value lerps toward. |
-| `CHROME_COMPRESS` | How hard chrome lerps toward the target. 0 = preserve original spread; 1 = all chrome becomes the same gray. |
-
-## Pipeline
-
-1. Per-channel: gamma lift, then S-curve around `MID`.
-2. Chrome keys (window/panel/editor/terminal backgrounds): desaturate to `BG_SAT`, then lerp toward `CHROME_TARGET` by `CHROME_COMPRESS`. Keeps editor / panels / window chrome reading as one family instead of three different greys.
-3. Foreground (text + accents + syntax): saturate first in HSL (so colors don't lose identity to channel clamping), deepen lightness by `FG_LIGHT`, then S-curve.
-4. Diagnostic backgrounds (`error.background`, `warning.background`, `created.background`, …): contrast bump only, hue preserved — these tints are signal.
 
 ## Claude port
 
