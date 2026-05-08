@@ -44,4 +44,4 @@ install: all
 # ayu-mirage.toml is a source file (hand-edited single source of truth);
 # never delete it here.
 clean:
-	rm -f zed/ayu-mirage-high-contrast.json claude/ayu-mirage.json telegram/ayu-mirage.tdesktop-theme telegram_ios/ayu-mirage.tgios-theme terminal/ayu-mirage.terminal kde/ayu-mirage.colors konsole/ayu-mirage.colorscheme palette.png
+	rm -f zed/ayu-mirage-high-contrast.json claude/ayu-mirage.json telegram/ayu-mirage.tdesktop-theme telegram/ayu-mirage.tdesktop-theme.txt telegram_ios/ayu-mirage.tgios-theme terminal/ayu-mirage.terminal kde/ayu-mirage.colors konsole/ayu-mirage.colorscheme palette.png
