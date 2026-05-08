@@ -183,7 +183,7 @@
         ],
         "syntax": {
           "attribute": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -208,7 +208,7 @@
             "font_weight": null
           },
           "constructor": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -218,12 +218,12 @@
             "font_weight": null
           },
           "emphasis": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
           "emphasis.strong": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": 700
           },
@@ -248,7 +248,7 @@
             "font_weight": null
           },
           "label": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -293,7 +293,7 @@
             "font_weight": null
           },
           "property": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -333,7 +333,7 @@
             "font_weight": null
           },
           "selector.pseudo": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -363,7 +363,7 @@
             "font_weight": null
           },
           "tag": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -378,7 +378,7 @@
             "font_weight": 700
           },
           "type": {
-            "color": "#4cd3ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
@@ -388,7 +388,7 @@
             "font_weight": null
           },
           "variant": {
-            "color": "#4ad4ffff",
+            "color": "#7adcf3ff",
             "font_style": null,
             "font_weight": null
           },
